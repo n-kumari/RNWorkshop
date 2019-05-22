@@ -6,7 +6,8 @@ import {
   View,
   StyleSheet,
   TouchableWithoutFeedback,
-  Image
+  ImageBackground,
+  TextInput
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -24,23 +25,41 @@ export default class MemeEditor extends React.Component {
     this.memeRef = ref;
   }
 
+  renderMemeTextInput = () => {
+    return (
+        <TextInput
+          autoCapitalize={'characters'}
+          placeholder={'Enter text here!'}
+          placeholderTextColor={'white'}
+          multiline={true}
+          style={styles.memeText}
+          numberOfLines={2}
+          underlineColorAndroid={'transparent'}/>
+      );
+  }
+
   closeKeyboard = () => {
     Keyboard.dismiss();
   }
+
 
   render = () => {
     return (
       <Modal animationType="slide" transparent={false}>
         <TouchableWithoutFeedback onPress={this.closeKeyboard}>
           <View style={styles.container}>
-            <Text>This is where you will add text to your meme!</Text>
+            <Text style={styles.baseFont}>
+              Tap on the top and bottom of the image to add your Text. Then save your meme to the Gallery!
+            </Text>
             <View
               collapsable={false}
               ref={this.setMemeRef}>
-              <Image
+              <ImageBackground
                 source={{ uri: this.props.photo.uri }}
                 style={styles.imageStyle}>
-              </Image>
+                {this.renderMemeTextInput()}
+                {this.renderMemeTextInput()}
+              </ImageBackground>
             </View>
           </View>
         </TouchableWithoutFeedback>
