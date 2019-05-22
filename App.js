@@ -18,6 +18,10 @@ export default class MemeCreator extends React.Component {
     this.setState({ hasCameraPermission: cameraResult.status === 'granted' && cameraRollResult.status === 'granted' });
   }
   
+  closeMemeEditor = () => {
+    this.setState({screen: welcomeScreen, photo: null});
+  }
+
   getExternalStoragePermission = async () => {
     await ImagePicker.launchImageLibraryAsync();
   }
@@ -58,7 +62,7 @@ export default class MemeCreator extends React.Component {
           </View>
         );
       } else {
-        return <MemeEditor photo={this.state.photo}/>;
+        return <MemeEditor photo={this.state.photo} closeMemeEditor={this.closeMemeEditor}/>;
       }
     }
   }
