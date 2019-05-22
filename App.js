@@ -23,7 +23,10 @@ export default class MemeCreator extends React.Component {
   }
 
   takePhoto = async() => {
-    // Use launchCameraAsync from Expo to launch the camera
+    const img = await Expo.ImagePicker.launchCameraAsync();
+    if (!img.cancelled) {
+      console.log(img);
+    }
   }
   
   androidExternalStorageSection = () => {
@@ -49,7 +52,6 @@ export default class MemeCreator extends React.Component {
               Welcome to the MemeCreator! Lets build a meme.
             </Text>
             <Button
-              // For now, Button does nothing on press. Add functionality in the takePhoto function
               onPress={this.takePhoto}
               title={'Take a new picture'}/>
             { Platform.OS === 'ios' ? null : this.androidExternalStorageSection() }
